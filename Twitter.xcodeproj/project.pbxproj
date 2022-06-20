@@ -63,6 +63,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0428791D2860F61600C9EC0F /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6AD278DE20BC4B950085BC29 /* Main.storyboard */,
+				6AD278E320BC4B970085BC29 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		6AD278CC20BC4B950085BC29 = {
 			isa = PBXGroup;
 			children = (
@@ -88,11 +97,10 @@
 				6AD278FF20BCBF280085BC29 /* Views */,
 				6AD278F720BCB6900085BC29 /* API */,
 				6AD278F820BCBC140085BC29 /* Models */,
+				0428791D2860F61600C9EC0F /* Storyboards */,
 				6AD278D820BC4B950085BC29 /* AppDelegate.h */,
 				6AD278D920BC4B950085BC29 /* AppDelegate.m */,
-				6AD278DE20BC4B950085BC29 /* Main.storyboard */,
 				6AD278E120BC4B970085BC29 /* Assets.xcassets */,
-				6AD278E320BC4B970085BC29 /* LaunchScreen.storyboard */,
 				6AD278E620BC4B970085BC29 /* Info.plist */,
 				6AD278E720BC4B970085BC29 /* main.m */,
 				0466456A2860F29B00BDF8CD /* Keys.plist */,
