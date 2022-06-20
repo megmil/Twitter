@@ -114,7 +114,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can someone make a friends style Master of None opening credits? Best one gets a signed poster or something?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAs-vp-Kwd">
-                                                    <rect key="frame" x="103" y="40" width="305" height="61"/>
+                                                    <rect key="frame" x="103" y="40" width="305" height="78"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -170,7 +170,7 @@
                                                 <constraint firstItem="xUP-BS-tUV" firstAttribute="height" secondItem="4XE-1i-zme" secondAttribute="height" id="jeV-yP-oKd"/>
                                                 <constraint firstItem="qhR-fI-WxH" firstAttribute="leading" secondItem="b6C-Er-xOS" secondAttribute="trailing" constant="20" id="mU8-Q6-y9W"/>
                                                 <constraint firstItem="xUP-BS-tUV" firstAttribute="top" secondItem="whK-B8-lLF" secondAttribute="topMargin" id="nyu-3P-AG9"/>
-                                                <constraint firstItem="xgz-m8-1wR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OAs-vp-Kwd" secondAttribute="bottom" constant="8" id="q5S-K2-jt8"/>
+                                                <constraint firstItem="xgz-m8-1wR" firstAttribute="top" secondItem="OAs-vp-Kwd" secondAttribute="bottom" constant="8" id="q5S-K2-jt8"/>
                                                 <constraint firstItem="rp4-3a-mOg" firstAttribute="top" secondItem="whK-B8-lLF" secondAttribute="topMargin" id="qjz-Io-1I3"/>
                                                 <constraint firstItem="xUP-BS-tUV" firstAttribute="leading" secondItem="4XE-1i-zme" secondAttribute="trailing" constant="8" id="rSv-Gg-Bwj"/>
                                                 <constraint firstItem="qhR-fI-WxH" firstAttribute="bottom" secondItem="whK-B8-lLF" secondAttribute="bottomMargin" id="skX-D2-2GA"/>
@@ -210,7 +210,7 @@
                                 <rect key="frame" x="325" y="10.666666666666668" width="83" height="34.666666666666657"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
                                 <connections>
                                     <action selector="didTapLogout:" destination="Lbl-k5-U4i" eventType="touchUpInside" id="Eh4-id-Fol"/>
                                 </connections>
