@@ -9,6 +9,7 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
+#import "DateTools.h"
 
 @implementation TweetCell
 
@@ -55,6 +56,11 @@
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     [self.profileImageView setImageWithURL:url];
+    
+    // format date
+    NSString *formattedDate = self.tweet.createdAtDate.shortTimeAgoSinceNow;
+    self.dateLabel.text = formattedDate;
+    
 }
 
 - (IBAction)didTapFavorite:(id)sender {
