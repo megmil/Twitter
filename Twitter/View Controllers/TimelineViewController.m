@@ -82,28 +82,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
-    Tweet *tweet = self.arrayOfTweets[indexPath.row];
-    
-    // configure labels
-    cell.authorLabel.text = tweet.user.name;
-    cell.usernameLabel.text = tweet.user.screenName;
-    cell.dateLabel.text = tweet.createdAtString;
-    cell.tweetLabel.text = tweet.text;
-    
-    // configure button titles
-    [cell.replyButton setTitle:@"" forState:UIControlStateNormal];
-    [cell.messageButton setTitle:@"" forState:UIControlStateNormal];
-    [cell.retweetButton setTitle:@(tweet.retweetCount).stringValue forState:UIControlStateNormal];
-    [cell.likeButton setTitle:@(tweet.favoriteCount).stringValue forState:UIControlStateNormal];
-    
-    // TODO: configure button colors
-    
-    // configure profileImageView
-    NSString *URLString = tweet.user.profilePicture;
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    [cell.profileImageView setImageWithURL:url];
-    
+    cell.tweet = self.arrayOfTweets[indexPath.row];
+    [cell refreshData];
     return cell;
 }
 
