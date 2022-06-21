@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.textView.text = @"";
+    
     [self.exitButton setTitle:@"" forState:UIControlStateNormal];
 }
 

@@ -1,27 +1,33 @@
 //
-//  TweetCell.m
+//  DetailsViewController.m
 //  twitter
 //
-//  Created by Megan Miller on 6/20/22.
+//  Created by Megan Miller on 6/21/22.
 //  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
-#import "TweetCell.h"
+#import "DetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
-#import "APIManager.h"
-#import "DateTools.h"
+#include "APIManager.h"
 
-@implementation TweetCell
+@interface DetailsViewController ()
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *authorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+@end
 
-    // Configure the view for the selected state
+@implementation DetailsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self refreshData];
 }
 
 - (void)refreshData {
@@ -33,7 +39,6 @@
     
     // configure button titles
     [self.replyButton setTitle:@"" forState:UIControlStateNormal];
-    [self.messageButton setTitle:@"" forState:UIControlStateNormal];
     [self.retweetButton setTitle:@(self.tweet.retweetCount).stringValue forState:UIControlStateNormal];
     [self.favoriteButton setTitle:@(self.tweet.favoriteCount).stringValue forState:UIControlStateNormal];
     
@@ -56,10 +61,34 @@
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     [self.profileImageView setImageWithURL:url];
-    
-    // format date
-    NSString *formattedDate = self.tweet.createdAtDate.shortTimeAgoSinceNow;
-    self.dateLabel.text = formattedDate;
+}
+
+- (IBAction)didTapRetweet:(id)sender {
+    if (self.tweet.retweeted) {
+        self.tweet.retweeted = NO;
+        self.tweet.retweetCount -= 1;
+        [self refreshData];
+        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"MM: Error unretweeting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"MM: Successfully unretweeted the following Tweet: %@", tweet.text);
+             }
+        }];
+    } else {
+        self.tweet.retweeted = YES;
+        self.tweet.retweetCount += 1;
+        [self refreshData];
+        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"MM: Error retweeting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"MM: Successfully retweeted the following Tweet: %@", tweet.text);
+             }
+        }];
+    }
 }
 
 - (IBAction)didTapFavorite:(id)sender {
@@ -90,32 +119,14 @@
     }
 }
 
-- (IBAction)didTapRetweet:(id)sender {
-    if (self.tweet.retweeted) {
-        self.tweet.retweeted = NO;
-        self.tweet.retweetCount -= 1;
-        [self refreshData];
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"MM: Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"MM: Successfully unretweeted the following Tweet: %@", tweet.text);
-             }
-        }];
-    } else {
-        self.tweet.retweeted = YES;
-        self.tweet.retweetCount += 1;
-        [self refreshData];
-        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"MM: Error retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"MM: Successfully retweeted the following Tweet: %@", tweet.text);
-             }
-        }];
-    }
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
+*/
 
 @end

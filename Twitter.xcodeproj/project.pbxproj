@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041971B6286268BA009F07C2 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041971B5286268BA009F07C2 /* DetailsViewController.m */; };
 		042879202860F78A00C9EC0F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0428791F2860F78A00C9EC0F /* User.m */; };
 		042879232860F85200C9EC0F /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 042879222860F85200C9EC0F /* Tweet.m */; };
 		042C0EB42860FDDB00372A78 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C0EB32860FDDB00372A78 /* TweetCell.m */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041971B4286268BA009F07C2 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		041971B5286268BA009F07C2 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		0428791E2860F78A00C9EC0F /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		0428791F2860F78A00C9EC0F /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		042879212860F85200C9EC0F /* Tweet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 				6AD2790820BCC04D0085BC29 /* TimelineViewController.m */,
 				049B632F28622CEA0040426E /* ComposeViewController.h */,
 				049B633028622CEA0040426E /* ComposeViewController.m */,
+				041971B4286268BA009F07C2 /* DetailsViewController.h */,
+				041971B5286268BA009F07C2 /* DetailsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 			files = (
 				042C0EB42860FDDB00372A78 /* TweetCell.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
+				041971B6286268BA009F07C2 /* DetailsViewController.m in Sources */,
 				042879202860F78A00C9EC0F /* User.m in Sources */,
 				049B633128622CEA0040426E /* ComposeViewController.m in Sources */,
 				6AD278E820BC4B970085BC29 /* main.m in Sources */,
