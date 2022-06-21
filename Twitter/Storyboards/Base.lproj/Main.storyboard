@@ -134,6 +134,9 @@
                                                     <state key="normal" title="999" image="retweet-icon">
                                                         <color key="titleColor" systemColor="systemGray2Color"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="oe5-5C-Qe1" eventType="touchUpInside" id="IP9-7V-A2c"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgz-m8-1wR">
                                                     <rect key="frame" x="103" y="126" width="30" height="30"/>
