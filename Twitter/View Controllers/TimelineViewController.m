@@ -44,21 +44,13 @@
     [self.tableView addSubview:self.refreshControl];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+// MODIFIES: arrayOfTweets
+// EFFECTS: Implements APIManager to update arrayOfTweets with the current timeline.
 - (void)getTimeline {
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         self.arrayOfTweets = (NSMutableArray *)tweets;
         if (self.arrayOfTweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (Tweet *tweet in self.arrayOfTweets) {
-                NSString *text = tweet.text;
-                NSLog(@"%@", text);
-            }
-
             [self.tableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
@@ -67,6 +59,21 @@
     [self.refreshControl endRefreshing];
 }
 
+// EFFECTS: Shows 20 tweets.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 20;
+}
+
+// MODIFIES: TweetCell tweet
+// EFFECTS: Configures and returns reusable TweetCell.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TweetCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    cell.tweet = self.arrayOfTweets[indexPath.row];
+    [cell refreshData];
+    return cell;
+}
+
+// EFFECTS: Returns to login screen.
 - (IBAction)didTapLogout:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
@@ -77,20 +84,14 @@
     [[APIManager shared] logout];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TweetCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
-    cell.tweet = self.arrayOfTweets[indexPath.row];
-    [cell refreshData];
-    return cell;
-}
-
 - (void) didTweet:(Tweet *)tweet {
     [self getTimeline];
     [self.tableView reloadData];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Navigation

@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
 #import "DateTools.h"
+#import "TweetInteractor.h"
 
 @implementation TweetCell
 
@@ -55,7 +56,7 @@
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
-    [self.profileImageView setImageWithURL:url];
+    self.profileImageView.image = [UIImage imageWithData:urlData];
     
     // format date
     NSString *formattedDate = self.tweet.createdAtDate.shortTimeAgoSinceNow;
@@ -64,58 +65,20 @@
 
 - (IBAction)didTapFavorite:(id)sender {
     if (self.tweet.favorited) {
-        self.tweet.favorited = NO;
-        self.tweet.favoriteCount -= 1;
-        [self refreshData];
-        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"MM: Error unfavoriting tweet: %@", error.localizedDescription);
-            }
-            else{
-                NSLog(@"MM: Successfully unfavorited the following Tweet: %@", tweet.text);
-            }
-        }];
+        [TweetInteractor interactWithTweetFavorites:self.tweet isFavoriting:NO];
     } else {
-        self.tweet.favorited = YES;
-        self.tweet.favoriteCount += 1;
-        [self refreshData];
-        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"MM: Error favoriting tweet: %@", error.localizedDescription);
-            }
-            else{
-                NSLog(@"MM: Successfully favorited the following Tweet: %@", tweet.text);
-            }
-        }];
+        [TweetInteractor interactWithTweetFavorites:self.tweet isFavoriting:YES];
     }
+    [self refreshData];
 }
 
 - (IBAction)didTapRetweet:(id)sender {
     if (self.tweet.retweeted) {
-        self.tweet.retweeted = NO;
-        self.tweet.retweetCount -= 1;
-        [self refreshData];
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"MM: Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"MM: Successfully unretweeted the following Tweet: %@", tweet.text);
-             }
-        }];
+        [TweetInteractor interactWithRetweets:self.tweet isRetweeting:NO];
     } else {
-        self.tweet.retweeted = YES;
-        self.tweet.retweetCount += 1;
-        [self refreshData];
-        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"MM: Error retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"MM: Successfully retweeted the following Tweet: %@", tweet.text);
-             }
-        }];
+        [TweetInteractor interactWithRetweets:self.tweet isRetweeting:YES];
     }
+    [self refreshData];
 }
 
 @end
