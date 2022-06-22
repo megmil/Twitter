@@ -9,11 +9,13 @@
 #import "ComposeViewController.h"
 #import "APIManager.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *exitButton;
 @property (weak, nonatomic) IBOutlet UIButton *tweetButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
+@property (nonatomic) int characterCount;
 
 @end
 
@@ -21,8 +23,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.textView.delegate = self;
     self.textView.text = @"";
+    self.characterCount = 0;
+    self.characterCountLabel.text = [NSString stringWithFormat:@"Character count: %d", self.characterCount];
     [self.exitButton setTitle:@"" forState:UIControlStateNormal];
 }
 
@@ -43,6 +47,18 @@
         }
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    self.characterCount = [[self.textView text] length];
+    self.characterCountLabel.text = [NSString stringWithFormat:@"Character count: %d", self.characterCount];
+    
+    if (self.characterCount > 280) {
+        [self.characterCountLabel setTextColor:[UIColor redColor]];
+    }
+    else {
+        [self.characterCountLabel setTextColor:[UIColor blackColor]];
+    }
 }
 
 @end

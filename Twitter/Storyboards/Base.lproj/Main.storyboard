@@ -638,12 +638,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character count: 280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTd-ym-pEo">
+                                <rect key="frame" x="245" y="314" width="163" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NGA-kH-47i"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ioj-HS-Ul8" firstAttribute="leading" secondItem="NGA-kH-47i" secondAttribute="leading" constant="20" id="5vU-5P-4D8"/>
                             <constraint firstItem="NGA-kH-47i" firstAttribute="trailing" secondItem="ioj-HS-Ul8" secondAttribute="trailing" constant="20" id="9Sm-Wk-fNi"/>
+                            <constraint firstItem="NGA-kH-47i" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sTd-ym-pEo" secondAttribute="bottom" constant="8" id="UW6-O5-bvO"/>
+                            <constraint firstItem="NGA-kH-47i" firstAttribute="trailing" secondItem="sTd-ym-pEo" secondAttribute="trailing" constant="20" id="dio-rI-Pol"/>
+                            <constraint firstItem="sTd-ym-pEo" firstAttribute="top" secondItem="ioj-HS-Ul8" secondAttribute="bottom" constant="8" id="jVs-s7-iyr"/>
                             <constraint firstItem="ioj-HS-Ul8" firstAttribute="top" secondItem="NGA-kH-47i" secondAttribute="top" id="q60-co-xD6"/>
                         </constraints>
                     </view>
@@ -672,6 +681,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="characterCountLabel" destination="sTd-ym-pEo" id="bN3-gL-IYK"/>
                         <outlet property="exitButton" destination="y4M-mv-fzC" id="1xg-kR-SW7"/>
                         <outlet property="textView" destination="ioj-HS-Ul8" id="dwz-dY-1sL"/>
                         <outlet property="tweetButton" destination="nU7-Fj-LpV" id="Kbw-Is-z1Z"/>
