@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
+@property (strong, nonatomic) NSMutableArray *arrayOfNewTweets;
+@property (nonatomic) BOOL isLoadingMoreData;
 
 @end
 
@@ -31,9 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"%@", self.user.bannerPicture);
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    self.isLoadingMoreData = NO;
     [self getTimeline];
     
     // configure label texts
@@ -56,9 +61,10 @@
 }
 
 // MODIFIES: arrayOfTweets
-// EFFECTS: Implements APIManager to update arrayOfTweets with the current user timeline.
+// EFFECTS: Updates arrayOfTweets with the current user timeline, then reloads table and stops refreshing.
 - (void)getTimeline {
-    [[APIManager shared] getUserTimelineWithScreenName:self.user.screenName completion:^(NSArray *tweets, NSError *error) {
+    [[APIManager shared] getUserTimelineWithScreenName:self.user.screenName
+                                            completion:^(NSArray *tweets, NSError *error) {
         self.arrayOfTweets = (NSMutableArray *)tweets;
         if (self.arrayOfTweets) {
             NSLog(@"😎😎😎 Successfully loaded user timeline");
@@ -69,9 +75,27 @@
     }];
 }
 
-// EFFECTS: Shows 20 tweets.
+// MODIFIES: arrayOfNewTweets, arrayOfTweets, isLoadingMoreData, tableView
+// EFFECTS: Loads more user tweets and appends to existing array, then reloads table.
+- (void)continueTimelineSinceID:(NSString *)maxID {
+    [[APIManager shared] getUserTimelineWithScreenName:self.user.screenName
+                                                 maxID:maxID
+                                            completion:^(NSArray *tweets, NSError *error){
+        self.arrayOfNewTweets = (NSMutableArray *)tweets;
+        if (self.arrayOfNewTweets) {
+            NSLog(@"😎😎😎 Successfully loaded more user tweets");
+            self.isLoadingMoreData = NO;
+            [self.arrayOfTweets addObjectsFromArray:self.arrayOfNewTweets];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"😫😫😫 Error loading more user tweets: %@", error.localizedDescription);
+        }
+    }];
+}
+
+// EFFECTS: Shows all loaded tweets.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return self.arrayOfTweets.count;
 }
 
 // MODIFIES: TweetCell tweet
@@ -81,6 +105,15 @@
     cell.tweet = self.arrayOfTweets[indexPath.row];
     [cell refreshData];
     return cell;
+}
+
+// MODIFIES: isLoadingMoreData
+// EFFECTS: If at end of timeline and not already loading data, sends request for the next 20 tweets.
+- (void)tableView:(UITableView *)tableView willDisplayCell:(TweetCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (cell.tweet == [self.arrayOfTweets lastObject] && !self.isLoadingMoreData) {
+        self.isLoadingMoreData = YES;
+        [self continueTimelineSinceID:cell.tweet.idStr];
+    }
 }
 
 #pragma mark - Navigation

@@ -16,7 +16,14 @@
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion;
 
+- (void)getHomeTimelineMaxID:(NSString *)maxID
+                  completion:(void(^)(NSArray *tweets, NSError *error))completion;
+
 - (void)getUserTimelineWithScreenName:(NSString *)screenName
+                           completion:(void(^)(NSArray *tweets, NSError *error))completion;
+
+- (void)getUserTimelineWithScreenName:(NSString *)screenName
+                                maxID:(NSString *)maxID
                            completion:(void(^)(NSArray *tweets, NSError *error))completion;
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion;

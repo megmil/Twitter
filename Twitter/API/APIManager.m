@@ -18,6 +18,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 @implementation APIManager
 
 + (instancetype)shared {
+    
     static APIManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -65,9 +66,40 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+- (void)getHomeTimelineMaxID:(NSString *)maxID completion:(void(^)(NSArray *tweets, NSError *error))completion {
+    
+    NSDictionary *parameters = @{@"tweet_mode":@"extended", @"max_id":maxID};
+    
+    [self GET:@"1.1/statuses/home_timeline.json"
+       parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+           completion(tweets, nil);
+       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           completion(nil, error);
+    }];
+}
+
 - (void)getUserTimelineWithScreenName:(NSString *)screenName
                            completion:(void(^)(NSArray *tweets, NSError *error))completion {
+    
     NSDictionary *parameters = @{@"screen_name":screenName};
+    
+    [self GET:@"1.1/statuses/user_timeline.json"
+       parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+           // Success
+           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+           completion(tweets, nil);
+       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           // There was a problem
+           completion(nil, error);
+    }];
+}
+
+- (void)getUserTimelineWithScreenName:(NSString *)screenName
+                                maxID:(NSString *)maxID
+                           completion:(void(^)(NSArray *tweets, NSError *error))completion {
+    
+    NSDictionary *parameters = @{@"screen_name":screenName, @"max_id":maxID};
     
     [self GET:@"1.1/statuses/user_timeline.json"
        parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
@@ -97,6 +129,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 
     NSString *urlString = @"1.1/favorites/create.json";
     NSDictionary *parameters = @{@"id": tweet.idStr};
+    
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
         completion(tweet, nil);
@@ -109,6 +142,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 
     NSString *urlString = @"1.1/favorites/destroy.json";
     NSDictionary *parameters = @{@"id": tweet.idStr};
+    
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
         completion(tweet, nil);
@@ -121,6 +155,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@", @"1.1/statuses/retweet/", tweet.idStr, @".json"];
     NSDictionary *parameters = @{@"id": tweet.idStr};
+    
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
         completion(tweet, nil);
@@ -133,6 +168,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@", @"1.1/statuses/unretweet/", tweet.idStr, @".json"];
     NSDictionary *parameters = @{@"id": tweet.idStr};
+    
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
         completion(tweet, nil);
