@@ -12,9 +12,9 @@
 #import "LoginViewController.h"
 #import "TweetCell.h"
 #import "Tweet.h"
-#import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
 #import "DetailsViewController.h"
+#import "ProfileViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -101,11 +101,16 @@
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
-    } else {
+    } else if ([segue.identifier  isEqual: @"detailsSegue"]) {
         NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
         Tweet *tweet = self.arrayOfTweets[myIndexPath.row];
         DetailsViewController *detailVC = [segue destinationViewController];
         detailVC.tweet = tweet;
+    } else {
+        NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
+        Tweet *tweet = self.arrayOfTweets[myIndexPath.row];
+        ProfileViewController *profileVC = [segue destinationViewController];
+        profileVC.user = tweet.user;
     }
 }
 

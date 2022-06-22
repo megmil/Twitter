@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #include "APIManager.h"
 #include "TweetInteractor.h"
+#include "ProfileViewController.h"
 
 @interface DetailsViewController ()
 
@@ -29,6 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refreshData];
+    
+    // configure tap gesture
+    UITapGestureRecognizer *tapProfileImageView = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(didTapProfile:)];
+    [self.profileImageView addGestureRecognizer:tapProfileImageView];
 }
 
 - (void)refreshData {
@@ -80,6 +86,17 @@
         [TweetInteractor interactWithTweetFavorites:self.tweet isFavoriting:YES];
     }
     [self refreshData];
+}
+
+- (void)didTapProfile:(UITapGestureRecognizer *)sender {
+    [self performSegueWithIdentifier:@"profileSegue" sender:self];
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ProfileViewController *profileVC = [segue destinationViewController];
+    profileVC.user = self.tweet.user;
 }
 
 @end

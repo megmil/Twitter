@@ -26,12 +26,12 @@
     [self.exitButton setTitle:@"" forState:UIControlStateNormal];
 }
 
-- (IBAction)exitButtonTapped:(id)sender {
+- (IBAction)didTapExitButton:(id)sender {
     NSLog(@"Dismiss Compose View Controller");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)tweetButtonTapped:(id)sender {
+- (IBAction)didTapTweetButton:(id)sender {
     NSString *textFromTextView = [self.textView text];
     [[APIManager shared]postStatusWithText:textFromTextView completion:^(Tweet *tweet, NSError *error) {
         if (error) {
