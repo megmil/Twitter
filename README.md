@@ -28,7 +28,7 @@ The following **stretch** features are implemented:
 - [X] Be able to **unlike** or **un-retweet** by tapping a liked or retweeted Tweet button, respectively. (Doing so will decrement the count for each)
 - [ ] Click on links that appear in Tweets
 - [ ] See embedded media in Tweets that contain images or videos
-- [ ] Reply to any Tweet (**2 points**)
+- [X] Reply to any Tweet (**2 points**)
   - Replies should be prefixed with the username
   - The `reply_id` should be set when posting the tweet
 - [X] See a character count when composing a Tweet (as well as a warning) (280 characters) (**1 point**)
