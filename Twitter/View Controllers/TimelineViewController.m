@@ -94,15 +94,6 @@
     return cell;
 }
 
-// EFFECTS: Returns to login screen.
-- (IBAction)didTapLogout:(id)sender {
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    appDelegate.window.rootViewController = loginViewController;
-    [[APIManager shared] logout];
-}
-
 // MODIFIES: isLoadingMoreData
 // EFFECTS: If at end of timeline and not already loading data, sends request for the next 20 tweets.
 - (void)tableView:(UITableView *)tableView willDisplayCell:(TweetCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -110,6 +101,15 @@
         self.isLoadingMoreData = YES;
         [self continueTimelineSinceID:cell.tweet.idStr];
     }
+}
+
+// EFFECTS: Returns to login screen.
+- (IBAction)didTapLogout:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    [[APIManager shared] logout];
 }
 
 - (void)didTweet:(Tweet *)tweet {
@@ -127,8 +127,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier  isEqual: @"composeSegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
-        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-        composeController.delegate = self;
+        ComposeViewController *composeVC = (ComposeViewController*)navigationController.topViewController;
+        composeVC.isReply = NO;
+        composeVC.delegate = self;
     } else if ([segue.identifier  isEqual: @"detailsSegue"]) {
         NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
         Tweet *tweet = self.arrayOfTweets[myIndexPath.row];

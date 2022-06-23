@@ -539,6 +539,9 @@
                                 <state key="normal" image="reply-icon">
                                     <color key="titleColor" systemColor="systemGray2Color"/>
                                 </state>
+                                <connections>
+                                    <segue destination="FWn-6n-TSn" kind="show" identifier="composeSegue" id="cQQ-bL-Msg"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@azizansari" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsi-Uh-pvd">
                                 <rect key="frame" x="103" y="83" width="77.333333333333314" height="25"/>
@@ -607,6 +610,7 @@
         <scene sceneID="dGI-8c-Ttf">
             <objects>
                 <navigationController id="FWn-6n-TSn" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Bu9-Xi-AEn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="amc-AZ-rzb">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -711,6 +715,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="GHq-O9-qzz"/>
         <segue reference="n7f-9G-n8G"/>
     </inferredMetricsTieBreakers>
     <resources>

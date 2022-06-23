@@ -38,14 +38,12 @@
     // configure button colors
     UIImage *retweetImage = [UIImage imageNamed:@"retweet-icon"];
     UIImage *favoriteImage = [UIImage imageNamed:@"favor-icon"];
-    
     if (self.tweet.retweeted) {
         retweetImage = [UIImage imageNamed:@"retweet-icon-green"];
     }
     if (self.tweet.favorited) {
         favoriteImage = [UIImage imageNamed:@"favor-icon-red"];
     }
-    
     [self.retweetButton setImage:retweetImage forState:UIControlStateNormal];
     [self.favoriteButton setImage:favoriteImage forState:UIControlStateNormal];
     

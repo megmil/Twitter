@@ -11,8 +11,9 @@
 #include "APIManager.h"
 #include "TweetInteractor.h"
 #include "ProfileViewController.h"
+#include "ComposeViewController.h"
 
-@interface DetailsViewController ()
+@interface DetailsViewController () <ComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
@@ -95,8 +96,17 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ProfileViewController *profileVC = [segue destinationViewController];
-    profileVC.user = self.tweet.user;
+    if ([segue.identifier  isEqual: @"profileSegue"]) {
+        ProfileViewController *profileVC = [segue destinationViewController];
+        profileVC.user = self.tweet.user;
+    } else {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeVC = (ComposeViewController*)navigationController.topViewController;
+        composeVC.isReply = NO;
+        composeVC.delegate = self;
+        composeVC.isReply = YES;
+        composeVC.replyTweet = self.tweet;
+    }
 }
 
 @end
