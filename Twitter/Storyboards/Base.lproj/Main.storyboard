@@ -52,9 +52,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKJ-HH-8tn" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="37.331334332833585"/>
+            <point key="canvasLocation" x="611" y="-776"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Item-->
         <scene sceneID="zWG-Ed-BDJ">
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" id="U7D-TH-Zzs" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -122,7 +122,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wr4-5f-Tsb">
-                                <rect key="frame" x="0.0" y="262" width="428" height="610"/>
+                                <rect key="frame" x="0.0" y="262" width="428" height="561"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="167" id="UCK-he-PgR" customClass="TweetCell">
@@ -276,6 +276,7 @@
                             <constraint firstItem="v22-zo-yP0" firstAttribute="leading" secondItem="pJE-5q-OAp" secondAttribute="trailing" constant="15" id="xr8-hm-6WH"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="xTX-ZL-KlV"/>
                     <navigationItem key="navigationItem" id="p2c-g7-lmD"/>
                     <connections>
                         <outlet property="backdropImageView" destination="lU7-zz-AIr" id="B2e-1J-tE0"/>
@@ -290,7 +291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iuk-db-m6Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2484" y="776"/>
+            <point key="canvasLocation" x="2972" y="776"/>
         </scene>
         <!--Home Timeline-->
         <scene sceneID="1Tv-nE-1AW">
@@ -305,13 +306,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77K-lf-nGe">
-                                <rect key="frame" x="176" y="453.66666666666669" width="76" height="21"/>
+                                <rect key="frame" x="176" y="429" width="76" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1VO-jj-bEZ">
-                                <rect key="frame" x="0.0" y="56" width="428" height="816"/>
+                                <rect key="frame" x="0.0" y="56" width="428" height="767"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="167" id="oe5-5C-Qe1" customClass="TweetCell">
@@ -450,10 +451,10 @@
                             <constraint firstItem="ugE-Ul-H9I" firstAttribute="trailing" secondItem="1VO-jj-bEZ" secondAttribute="trailing" id="rwa-zM-ZEV"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Sqy-AN-CzH"/>
                     <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="Pgq-Rb-YSw">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="cnr-yS-xWJ">
-                                <rect key="frame" x="20" y="10.666666666666668" width="83" height="34.666666666666657"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Logout"/>
@@ -464,7 +465,6 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="XEg-P0-5RK">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="4d1-LT-5mi">
-                                <rect key="frame" x="313" y="7.6666666666666679" width="95" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="edit-icon"/>
@@ -623,6 +623,25 @@
             </objects>
             <point key="canvasLocation" x="2445" y="37"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="egg-Ek-KpY">
+            <objects>
+                <tabBarController id="OjE-h5-LL2" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="9lW-4q-vM0"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a2U-sl-6xY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Lbl-k5-U4i" kind="relationship" relationship="viewControllers" id="rrq-Az-4b7"/>
+                        <segue destination="U7D-TH-Zzs" kind="relationship" relationship="viewControllers" id="Xny-9H-peK"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TfL-26-GrB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2445" y="-776"/>
+        </scene>
         <!--Compose View Controller-->
         <scene sceneID="X7d-yG-lvr">
             <objects>
@@ -706,17 +725,18 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Lbl-k5-U4i" kind="relationship" relationship="rootViewController" id="1DH-bv-mXM"/>
+                        <segue destination="OjE-h5-LL2" kind="relationship" relationship="rootViewController" id="LL1-iS-UlN"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JHS-35-jFs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860" y="36.431784107946029"/>
+            <point key="canvasLocation" x="1438" y="-776"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="GHq-O9-qzz"/>
         <segue reference="n7f-9G-n8G"/>
+        <segue reference="Xny-9H-peK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="TwitterLogoBlue" width="133.33332824707031" height="133.33332824707031"/>

@@ -40,4 +40,6 @@
 
 - (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 
+- (void)getAccountWithCompletion:(void (^)(User *user, NSError *error))completion;
+
 @end

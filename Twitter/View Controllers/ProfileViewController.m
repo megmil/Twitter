@@ -10,6 +10,7 @@
 #import "APIManager.h"
 #import "TweetCell.h"
 #import "DetailsViewController.h"
+#import "User.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -26,6 +27,8 @@
 @property (strong, nonatomic) NSMutableArray *arrayOfNewTweets;
 @property (nonatomic) BOOL isLoadingMoreData;
 
+@property (nonatomic) CGFloat originalHeight;
+
 @end
 
 @implementation ProfileViewController
@@ -33,12 +36,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"%@", self.user.bannerPicture);
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     self.isLoadingMoreData = NO;
+    
+    if (self.user == nil) {
+        [self getCurrentUser];
+        NSLog(@"%@", self.user);
+    }
     [self getTimeline];
     
     // configure label texts
@@ -58,6 +64,8 @@
     NSURL *backdropURL = [NSURL URLWithString:backdropURLString];
     NSData *backdropURLData = [NSData dataWithContentsOfURL:backdropURL];
     self.backdropImageView.image = [UIImage imageWithData:backdropURLData];
+    self.backdropImageView.clipsToBounds = YES;
+    self.originalHeight = self.backdropImageView.frame.size.height;
 }
 
 // MODIFIES: arrayOfTweets
@@ -89,6 +97,17 @@
             [self.tableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error loading more user tweets: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)getCurrentUser {
+    [[APIManager shared] getAccountWithCompletion:^(User *user, NSError *error){
+        if (user) {
+            NSLog(@"😎😎😎 Successfully loaded user account");
+            self.user = user;
+        } else {
+            NSLog(@"😫😫😫 Error loading user account: %@", error.localizedDescription);
         }
     }];
 }
