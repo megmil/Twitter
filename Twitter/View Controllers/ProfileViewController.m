@@ -27,8 +27,6 @@
 @property (strong, nonatomic) NSMutableArray *arrayOfNewTweets;
 @property (nonatomic) BOOL isLoadingMoreData;
 
-@property (nonatomic) CGFloat originalHeight;
-
 @end
 
 @implementation ProfileViewController
@@ -43,9 +41,9 @@
     
     if (self.user == nil) {
         [self getCurrentUser];
-        NSLog(@"%@", self.user);
+    } else {
+        [self getTimeline];
     }
-    [self getTimeline];
     
     // configure label texts
     self.userNameLabel.text = self.user.name;
@@ -65,9 +63,9 @@
     NSData *backdropURLData = [NSData dataWithContentsOfURL:backdropURL];
     self.backdropImageView.image = [UIImage imageWithData:backdropURLData];
     self.backdropImageView.clipsToBounds = YES;
-    self.originalHeight = self.backdropImageView.frame.size.height;
 }
 
+// REQUIRES: user.screenName != nil
 // MODIFIES: arrayOfTweets
 // EFFECTS: Updates arrayOfTweets with the current user timeline, then reloads table and stops refreshing.
 - (void)getTimeline {
@@ -101,11 +99,14 @@
     }];
 }
 
+// MODIFIES: user
+// EFFECTS: Loads account details for current user.
 - (void)getCurrentUser {
-    [[APIManager shared] getAccountWithCompletion:^(User *user, NSError *error){
+    [[APIManager shared] getAccountWithCompletion:^(User *user, NSError *error) {
         if (user) {
             NSLog(@"😎😎😎 Successfully loaded user account");
             self.user = user;
+            [self getTimeline];
         } else {
             NSLog(@"😫😫😫 Error loading user account: %@", error.localizedDescription);
         }

@@ -1,21 +1,16 @@
 //
-//  TimelineViewController.m
+//  MentionsViewController.m
 //  twitter
 //
-//  Created by emersonmalca on 5/28/18.
-//  Copyright © 2018 Emerson Malca. All rights reserved.
+//  Created by Megan Miller on 6/24/22.
+//  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
-#import "TimelineViewController.h"
+#import "MentionsViewController.h"
 #import "APIManager.h"
-#import "AppDelegate.h"
-#import "LoginViewController.h"
 #import "TweetCell.h"
-#import "Tweet.h"
-#import "DetailsViewController.h"
-#import "ProfileViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MentionsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,7 +21,7 @@
 
 @end
 
-@implementation TimelineViewController
+@implementation MentionsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,25 +31,25 @@
     
     self.isLoadingMoreData = NO;
     
-    [self getTimeline];
+    [self getMentions];
     
     // configure refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(getTimeline) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(getMentions) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     [self.tableView addSubview:self.refreshControl];
 }
 
 // MODIFIES: arrayOfTweets, tableView, refreshControl
 // EFFECTS: Updates arrayOfTweets with the current timeline, then reloads table and stops refreshing.
-- (void)getTimeline {
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+- (void)getMentions {
+    [[APIManager shared] getMentionsWithCompletion:^(NSArray *tweets, NSError *error) {
         self.arrayOfTweets = (NSMutableArray *)tweets;
         if (self.arrayOfTweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
+            NSLog(@"😎😎😎 Successfully loaded mentions");
             [self.tableView reloadData];
         } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+            NSLog(@"😫😫😫 Error getting mentions: %@", error.localizedDescription);
         }
     }];
     [self.refreshControl endRefreshing];
@@ -85,7 +80,7 @@
 // MODIFIES: TweetCell.tweet
 // EFFECTS: Configures and returns reusable TweetCell.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TweetCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];    
+    TweetCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     cell.tweet = self.arrayOfTweets[indexPath.row];
     [cell refreshData];
     return cell;
@@ -100,29 +95,8 @@
     }
 }
 
-- (void)didTweet:(Tweet *)tweet {
-    [self getTimeline];
-    [self.tableView reloadData];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier  isEqual: @"detailsSegue"]) {
-        NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
-        Tweet *tweet = self.arrayOfTweets[myIndexPath.row];
-        DetailsViewController *detailVC = [segue destinationViewController];
-        detailVC.tweet = tweet;
-    } else {
-        NSIndexPath *myIndexPath = [self.tableView indexPathForCell:sender];
-        Tweet *tweet = self.arrayOfTweets[myIndexPath.row];
-        ProfileViewController *profileVC = [segue destinationViewController];
-        profileVC.user = tweet.user;
-    }
 }
 
 @end

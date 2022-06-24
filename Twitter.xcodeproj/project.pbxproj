@@ -13,6 +13,8 @@
 		042C0EB42860FDDB00372A78 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C0EB32860FDDB00372A78 /* TweetCell.m */; };
 		04565F0E2862ABF6008AD19F /* TweetInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04565F0D2862ABF6008AD19F /* TweetInteractor.m */; };
 		0466456B2860F29B00BDF8CD /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0466456A2860F29B00BDF8CD /* Keys.plist */; };
+		0474BF56286634A100D554DF /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0474BF55286634A100D554DF /* TabBarController.m */; };
+		0474BF5928663B7500D554DF /* MentionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0474BF5828663B7500D554DF /* MentionsViewController.m */; };
 		049B633128622CEA0040426E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049B633028622CEA0040426E /* ComposeViewController.m */; };
 		04F7E8D42863866300187A5D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F7E8D32863866300187A5D /* ProfileViewController.m */; };
 		557D7B17F5D2B5715B705AA9 /* libPods-twitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6142D6F34C1AE98EE4951 /* libPods-twitter.a */; };
@@ -39,6 +41,10 @@
 		04565F0C2862ABF6008AD19F /* TweetInteractor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetInteractor.h; sourceTree = "<group>"; };
 		04565F0D2862ABF6008AD19F /* TweetInteractor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TweetInteractor.m; sourceTree = "<group>"; };
 		0466456A2860F29B00BDF8CD /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		0474BF54286634A100D554DF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		0474BF55286634A100D554DF /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
+		0474BF5728663B7500D554DF /* MentionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MentionsViewController.h; sourceTree = "<group>"; };
+		0474BF5828663B7500D554DF /* MentionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MentionsViewController.m; sourceTree = "<group>"; };
 		049B632F28622CEA0040426E /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		049B633028622CEA0040426E /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		04F7E8D22863866300187A5D /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -175,6 +181,10 @@
 				041971B5286268BA009F07C2 /* DetailsViewController.m */,
 				04F7E8D22863866300187A5D /* ProfileViewController.h */,
 				04F7E8D32863866300187A5D /* ProfileViewController.m */,
+				0474BF54286634A100D554DF /* TabBarController.h */,
+				0474BF55286634A100D554DF /* TabBarController.m */,
+				0474BF5728663B7500D554DF /* MentionsViewController.h */,
+				0474BF5828663B7500D554DF /* MentionsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -306,7 +316,9 @@
 				049B633128622CEA0040426E /* ComposeViewController.m in Sources */,
 				6AD278E820BC4B970085BC29 /* main.m in Sources */,
 				042879232860F85200C9EC0F /* Tweet.m in Sources */,
+				0474BF56286634A100D554DF /* TabBarController.m in Sources */,
 				6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */,
+				0474BF5928663B7500D554DF /* MentionsViewController.m in Sources */,
 				04565F0E2862ABF6008AD19F /* TweetInteractor.m in Sources */,
 				04F7E8D42863866300187A5D /* ProfileViewController.m in Sources */,
 				6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */,

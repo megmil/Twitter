@@ -19,6 +19,8 @@
 - (void)getHomeTimelineMaxID:(NSString *)maxID
                   completion:(void(^)(NSArray *tweets, NSError *error))completion;
 
+- (void)getMentionsWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion;
+
 - (void)getUserTimelineWithScreenName:(NSString *)screenName
                            completion:(void(^)(NSArray *tweets, NSError *error))completion;
 
