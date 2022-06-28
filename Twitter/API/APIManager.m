@@ -66,6 +66,19 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+- (void)getMentionsWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
+    
+    NSDictionary *parameters = @{@"tweet_mode":@"extended"};
+    
+    [self GET:@"1.1/statuses/mentions_timeline.json"
+       parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+           completion(tweets, nil);
+       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+           completion(nil, error);
+    }];
+}
+
 - (void)getHomeTimelineMaxID:(NSString *)maxID completion:(void(^)(NSArray *tweets, NSError *error))completion {
     
     NSDictionary *parameters = @{@"tweet_mode":@"extended", @"max_id":maxID};
@@ -187,6 +200,18 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
         completion(tweet, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+}
+
+- (void)getAccountWithCompletion:(void (^)(User *user, NSError *error))completion {
+    
+    NSString *urlString = @"1.1/account/verify_credentials.json";
+    
+    [self GET:urlString parameters:nil  progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable userDictionary) {
+        User *user = [[User alloc] initWithDictionary:userDictionary];
+        completion(user, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(nil, error);
     }];

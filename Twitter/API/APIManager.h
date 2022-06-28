@@ -19,6 +19,8 @@
 - (void)getHomeTimelineMaxID:(NSString *)maxID
                   completion:(void(^)(NSArray *tweets, NSError *error))completion;
 
+- (void)getMentionsWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion;
+
 - (void)getUserTimelineWithScreenName:(NSString *)screenName
                            completion:(void(^)(NSArray *tweets, NSError *error))completion;
 
@@ -39,5 +41,7 @@
 - (void)retweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 
 - (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
+
+- (void)getAccountWithCompletion:(void (^)(User *user, NSError *error))completion;
 
 @end

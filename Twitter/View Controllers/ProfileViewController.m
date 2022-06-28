@@ -10,6 +10,7 @@
 #import "APIManager.h"
 #import "TweetCell.h"
 #import "DetailsViewController.h"
+#import "User.h"
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -33,13 +34,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"%@", self.user.bannerPicture);
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     self.isLoadingMoreData = NO;
-    [self getTimeline];
+    
+    if (self.user == nil) {
+        [self getCurrentUser];
+    } else {
+        [self getTimeline];
+    }
     
     // configure label texts
     self.userNameLabel.text = self.user.name;
@@ -58,8 +62,10 @@
     NSURL *backdropURL = [NSURL URLWithString:backdropURLString];
     NSData *backdropURLData = [NSData dataWithContentsOfURL:backdropURL];
     self.backdropImageView.image = [UIImage imageWithData:backdropURLData];
+    self.backdropImageView.clipsToBounds = YES;
 }
 
+// REQUIRES: user.screenName != nil
 // MODIFIES: arrayOfTweets
 // EFFECTS: Updates arrayOfTweets with the current user timeline, then reloads table and stops refreshing.
 - (void)getTimeline {
@@ -89,6 +95,20 @@
             [self.tableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error loading more user tweets: %@", error.localizedDescription);
+        }
+    }];
+}
+
+// MODIFIES: user
+// EFFECTS: Loads account details for current user.
+- (void)getCurrentUser {
+    [[APIManager shared] getAccountWithCompletion:^(User *user, NSError *error) {
+        if (user) {
+            NSLog(@"😎😎😎 Successfully loaded user account");
+            self.user = user;
+            [self getTimeline];
+        } else {
+            NSLog(@"😫😫😫 Error loading user account: %@", error.localizedDescription);
         }
     }];
 }

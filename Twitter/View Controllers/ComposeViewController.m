@@ -19,8 +19,6 @@
 
 @end
 
-// if reply, send request as a reply
-
 @implementation ComposeViewController
 
 - (void)viewDidLoad {
